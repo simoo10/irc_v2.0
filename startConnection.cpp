@@ -44,6 +44,7 @@ void Server::ReceiveNewData(int fd)
         // static ch nwebuff += buff;
         // if ( != std::npos)
         std::string data(buff);
+        std::cout << "buf : " << data << std::endl;
         ParseCmd(data, *this, fd);
 		std::cout <<ORANGE<< "Client <" <<RESET<< fd <<ORANGE<< "> Data: "  << buff<<RESET;
 	}

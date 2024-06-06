@@ -31,6 +31,7 @@ void Server::parseClientInput(Client& new_client, int fd) {
                 std::istringstream linestream(line);  // Create an input string stream from the line
                 std::string command;
                 linestream >> command;
+                std::cout << "cmd : " << command << "a" <<std::endl;
                 if(command=="quit")
                 {
                     std::cout  <<RED<< "Client <" << fd << "> Disconnected" << std::endl;
@@ -65,6 +66,7 @@ void Server::parseClientInput(Client& new_client, int fd) {
                         continue;
                     new_client.setNickname(nick);
                     new_client.setNicknameReceived(true);
+                std::cout << "nick : " <<  new_client.getNickname() << "a" <<std::endl;
                     // Prompt for username after receiving nickname
                     std::string usernamePrompt = colorCode("Please enter your username:\r\n",3);
                     send(fd, usernamePrompt.c_str(), usernamePrompt.size(), 0);
@@ -90,10 +92,10 @@ void Server::parseClientInput(Client& new_client, int fd) {
 void Server::send_welcome_message(int fd,Client client)
 {
     //":irc.server.com 001 " + nickname + " :Welcome to the IRC Server, " + nickname + "!\r\n"
-    std::string welcomeMessage =colorCode(":myserver 001 " + client.getNickname()  + " :Welcome to the IRC server, " + client.getNickname() + "!\r\n", 6);
+    std::string welcomeMessage =colorCode(":irc.server.com 001 " + client.getNickname() + " :Welcome to the IRC Server, " + client.getNickname() + "!\r\n", 6);
     // std::string yourHostMsg = colorCode(":myserver 002 " + client.getNickname() + " :Your host is myserver\r\n",6);
     // std::string createdMsg = colorCode(":myserver 003 " + client.getNickname()+ " :This server was created just now\r\n",6);
-    // std::string myInfoMsg = colorCode(":myserver 004 " + client.getNickname()+ " myserver v1.0 i\r\n",6);
+    // std::string myInfoMsg = colorCode(":myserver 004 " + client.getNickname()+ " myserver v1.0 i\r\n",6);   
   
     send(fd, welcomeMessage.c_str(), welcomeMessage.size(), 0);
     // send(fd, yourHostMsg.c_str(), yourHostMsg.size(), 0);

@@ -51,6 +51,7 @@ class Server{
     bool validateNickname(std::string nickname);
     std::string colorCode(const std::string& message, int color);
     void send_welcome_message(int fd,Client client);
+    void irc_bot(Client &client,std::string arg);
 };
 
 void	ParseCmd(std::string cmd, Server& serv, int fd);
