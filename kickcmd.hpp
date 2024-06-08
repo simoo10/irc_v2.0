@@ -16,6 +16,7 @@ class KickCmd{
     std::string nosuchchannel(std::string channel_name);
     std::string nosuchuser(std::string kicked_nick);
     std::string notadmin(std::string source_nick,std::string channel_name);
+    std::string kickyourself(std::string source_nick);
        
 };
  void send_response(int fd, std::string response);

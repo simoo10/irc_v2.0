@@ -95,6 +95,12 @@ void KickCmd::kick(std::string full_args, Channel &ch,int fd){
         send_response(fd, nosuchuser(user));
         return;
     }
+    //tantchecki wach had user li mssift request bgha ykicki rasso
+    if(fd == kicked_fd){
+        std::cout<<"You can not kick yourself"<<std::endl;
+        send_response(fd, kickyourself(client_name));
+        return;
+    }
     //tantchecki wach had user li mssift request admin
     if(ch.isOperator(channel,client_name)==false){
         std::cout<<"You are not an operator"<<std::endl;
@@ -147,4 +153,8 @@ std::string KickCmd::nosuchuser(std::string kicked_nick){
 
 std::string KickCmd::notadmin(std::string source_nick,std::string channel_name){
     return(":localhost 482 " + channel_name + " :You're not channel operator\r\n");
+}
+
+std::string KickCmd::kickyourself(std::string source_nick){
+    return(":488 " + source_nick + " :You can not kick yourself\r\n");
 }
